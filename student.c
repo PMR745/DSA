@@ -70,6 +70,21 @@ void quickSort(struct student *s, int low, int high)
     }
 }
 
+void linear_search(struct student *s, int n)
+{
+    char key[50];
+    printf("Enter Name to be Searched: ");
+    scanf("%s", &key);
+    for (int i = 0; i < n; i++)
+    {
+        if (strcmp(s[i].name, key) == 0)
+        {
+            printf("Element Found!\n");
+            printf("\nName: %s\nRoll No: %d\nCGPa: %.2f\n", s[i].roll_no, s[i].name, s[i].cgpa);
+        }
+    }
+}
+
 void display(struct student *s, int n)
 {
     printf("\nRoll No\t\tName      \t\t\tCGPA\n");
@@ -115,14 +130,24 @@ int main()
         {
         case 1:
             bubbleSort(s, n);
+            display(s, n);
+
             break;
 
         case 2:
             insertionSort(s, n);
+            display(s, n);
+
             break;
 
         case 3:
             quickSort(s, 0, n);
+            display(s, n);
+
+            break;
+
+        case 4:
+            linear_search(s, n);
             break;
 
         case 6:
@@ -131,7 +156,5 @@ int main()
         default:
             break;
         }
-
-        display(s, n);
     }
 }
