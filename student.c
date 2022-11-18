@@ -72,31 +72,55 @@ void quickSort(struct student *s, int low, int high)
 
 void linear_search(struct student *s, int n)
 {
+    float key;
+    printf("Enter the CGPA to be Searched: ");
+    scanf("%f", &key);
+    for (int i = 0; i < n; i++)
+    {
+        if(s[i].cgpa == key) {
+            printf("\nStudent Found!\n");
+            printf("\nName: %s\nRoll No: %d\nCGPA: %.2f\n", s[i].name, s[i].roll_no, s[i].cgpa);
+        }
+    }
+}
+
+void binarySearch(struct student *s, int n) {
+    insertionSort(s, n);
     char key[50];
     printf("Enter Name to be Searched: ");
     scanf("%s", &key);
-    for (int i = 0; i < n; i++)
-    {
-        if (strcmp(s[i].name, key) == 0)
-        {
-            printf("Element Found!\n");
-            printf("\nName: %s\nRoll No: %d\nCGPa: %.2f\n", s[i].roll_no, s[i].name, s[i].cgpa);
+    int low = 0;
+    int high = n;
+    while(low <= high) {
+        int mid = (low+high)/2;
+        if(strcmp(s[mid].name, key) == 0) {
+            printf("Student Found!\n");
+            printf("\nName: %s\nRoll No: %d\nCGPA: %.2f\n", s[mid].name, s[mid].roll_no, s[mid].cgpa);
+            break;
+        }
+        else if(strcmp(s[mid].name, key) > 0) {
+            high = mid - 1;
+        }
+        else {
+            low = mid + 1;
         }
     }
 }
 
 void display(struct student *s, int n)
 {
-    printf("\nRoll No\t\tName      \t\t\tCGPA\n");
+    printf("\nRoll No\t\t| Name      \t\t\t| CGPA");
     for (int i = 0; i < n; i++)
     {
         if (strlen(s[i].name) > 7)
         {
-            printf("\n%d\t\t%s\t\t\t%.2f", s[i].roll_no, s[i].name, s[i].cgpa);
+            printf("\n----------------|-------------------------------|------");
+            printf("\n%d\t\t| %s\t\t\t| %.2f", s[i].roll_no, s[i].name, s[i].cgpa);
         }
         else
         {
-            printf("\n%d\t\t%s\t\t\t\t%.2f", s[i].roll_no, s[i].name, s[i].cgpa);
+            printf("\n----------------|-------------------------------|------");
+            printf("\n%d\t\t| %s\t\t\t\t| %.2f", s[i].roll_no, s[i].name, s[i].cgpa);
         }
     }
 }
@@ -116,7 +140,6 @@ int main()
         printf("Enter the CGPA of student: ");
         scanf("%f", &s[i].cgpa);
     }
-    printf("\nRoll No\t\tName\t\t\tCGPA");
 
     display(s, n);
     while (repeat == 1)
@@ -131,28 +154,30 @@ int main()
         case 1:
             bubbleSort(s, n);
             display(s, n);
-
             break;
 
         case 2:
             insertionSort(s, n);
             display(s, n);
-
             break;
 
         case 3:
             quickSort(s, 0, n);
             display(s, n);
-
             break;
 
         case 4:
             linear_search(s, n);
             break;
 
+        case 5:
+            binarySearch(s, n);
+            break;
+
         case 6:
             repeat = 0;
             break;
+
         default:
             break;
         }
