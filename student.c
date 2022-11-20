@@ -33,14 +33,16 @@ void insertionSort(struct student *s, int n)
 {
     for (int i = 0; i < n; i++)
     {
-        for (int j = i + 1; j < n; j++)
+        struct student temp = s[i];
+        int j = i - 1;
+        while (strcmp(s[j].name, temp.name) > 0 && j >= 0)
         {
-            if (strcmp(s[i].name, s[j].name) > 0)
-            {
-                swap(s, i, j);
-            }
+            s[j+1] = s[j];
+            j--;
         }
+        s[j+1] = temp;
     }
+    
 }
 
 int partition(struct student *s, int low, int high)
